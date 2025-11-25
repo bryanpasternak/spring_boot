@@ -11,4 +11,9 @@ public class WebController {
     public Result hello() {
         throw new CustomException("400","禁止访问");
     }
+
+    @GetMapping("/error")
+    public Result error(){
+        throw new CustomException("400","禁止访问");
+    }
 }
