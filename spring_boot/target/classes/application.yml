@@ -1,0 +1,32 @@
+
+#把文件名由properties改为yml，删除spring.application.name=spring_boot
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username:
+#    password:
+#    url: jdbc:mysql://localhost:3386/xm-pro?useUnicode=true&characterEncoding=utf-8&8allowWMulti
+
+#spring:
+#  datasource:
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver  # SQL Server驱动
+#    username: sa  # SQL Server默认用户名是sa
+#    password: 88888888a  # 安装SQL Server时设置的sa密码，SSMS登录用的就是这个
+#    url: jdbc:sqlserver://localhost:1433;DatabaseName=xm-pro;encrypt=true;trustServerCertificate=true
+#    # 说明：1433是SQL Server默认端口，xm-pro是你要连接的数据库名（需在SSMS中先创建）
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/xm-pro?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+
+# 配置mybatis实体和xml映射
+mybatis:
+  ## 映射xml, 告诉springboot在哪找xml文件，classpath对应resources
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 配置日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
