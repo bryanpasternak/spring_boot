@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WebController {
     @GetMapping("/hello")
-    public Result hello() {
+    public Result hello() throws CustomException {
         throw new CustomException("400","禁止访问");
     }
 
