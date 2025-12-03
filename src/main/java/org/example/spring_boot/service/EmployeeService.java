@@ -15,18 +15,29 @@ public class EmployeeService {
     @Resource
     private EmployeeMapper employeeMapper;
 
-    public List<Employee> selectAll() {
-        return employeeMapper.selectAll();  // 直接调用Mapper
+    public List<Employee> selectAll(Employee employee) {
+        return employeeMapper.selectAll(employee);  // 直接调用Mapper
     }
 
     public Employee selectByID(Integer id) {
         return employeeMapper.selectByID(id);
     }
 
-    public PageInfo<Employee> selectPage(Integer pageNum, Integer pageSize) {
+    public PageInfo<Employee> selectPage(Employee employee, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Employee> list = employeeMapper.selectAll();
+        List<Employee> list = employeeMapper.selectAll(employee);
         return  PageInfo.of(list);
     }
 
+    public int insertEmployee(Employee employee) {
+        return employeeMapper.insertEmployee(employee);
+    }
+
+    public int updateEmployee(Employee employee) {
+        return employeeMapper.updateEmployee(employee);
+    }
+
+    public boolean removeById(Integer id) {
+        return employeeMapper.deleteEmployee(id);
+    }
 }

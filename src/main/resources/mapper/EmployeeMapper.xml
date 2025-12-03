@@ -5,7 +5,32 @@
 <mapper namespace="org.example.spring_boot.mapper.EmployeeMapper">
     <select id="selectAll" resultType="org.example.spring_boot.entity.Employee">
         SELECT * FROM employee
+        <where>
+            <if test="name != null">name like concat ('%', #{name}, '%')</if>
+        </where>
     </select>
+
+    <insert id="insertEmployee" parameterType="org.example.spring_boot.entity.Employee"
+            useGeneratedKeys="true" keyProperty="id"> <!-- 必须加这两个属性 -->
+        insert into employee (name, email, department, salary, hire_date)
+        values (#{name}, #{email}, #{department}, #{salary}, #{hireDate})
+    </insert>
+
+    <update id="updateEmployee">
+        UPDATE employee
+        SET
+            name = #{name},
+            email = #{email},
+            department = #{department},
+            salary = #{salary},
+            hire_date = #{hireDate}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEmployee">
+        DELETE FROM employee
+        WHERE id = #{id}
+    </delete>
 
 </mapper>
 

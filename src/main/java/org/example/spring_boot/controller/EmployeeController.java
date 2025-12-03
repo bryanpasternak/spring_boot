@@ -16,8 +16,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/selectAll")
-    public Result selectAll(){
-        List<Employee> data = employeeService.selectAll();
+    public Result selectAll(Employee employee) {
+        List<Employee> data = employeeService.selectAll(employee);
         return Result.success(data);  // 用Result包装
     }
 
@@ -34,11 +34,40 @@ public class EmployeeController {
     }
 
     @GetMapping("/selectPage")
-    public Result selectPage(@RequestParam(defaultValue = "1") Integer pageNum,
+    public Result selectPage(Employee employee,
+                             @RequestParam(defaultValue = "1") Integer pageNum,
                              @RequestParam(defaultValue = "10") Integer pageSize){
-        PageInfo<Employee> pageInfo = employeeService.selectPage(pageNum, pageSize);
+
+        PageInfo<Employee> pageInfo = employeeService.selectPage(employee, pageNum, pageSize);
         return Result.success(pageInfo);
     }
 
+    @PostMapping("/insert")
+    public Result insertEmployee(@RequestBody Employee employee){
+        // 建议判断一下插入是否成功
+        boolean success = employeeService.insertEmployee(employee) > 0;
+        if (success) {
+            return Result.success(employee);  // 或者返回 "新增成功"
+        } else {
+            return Result.error("500", "新增失败");
+        }
+    }
+
+    @PutMapping("/edit")
+    public Result editEmployee(@RequestBody Employee employee){
+        // 建议判断一下插入是否成功
+        boolean success = employeeService.updateEmployee(employee) > 0;
+        if (success) {
+            return Result.success(employee);  // 或者返回 "新增成功"
+        } else {
+            return Result.error("500", "新增失败");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Result deleteEmployee(@PathVariable Integer id) {
+        boolean success = employeeService.removeById(id);  // 一行搞定！
+        return success ? Result.success("删除成功") : Result.error("500", "删除失败");
+    }
 
 }
