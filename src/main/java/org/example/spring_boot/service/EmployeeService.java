@@ -2,7 +2,9 @@ package org.example.spring_boot.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
+import org.example.spring_boot.common.Result;
 import org.example.spring_boot.entity.Employee;
+import org.example.spring_boot.exception.CustomException;
 import org.example.spring_boot.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +41,22 @@ public class EmployeeService {
 
     public boolean removeById(Integer id) {
         return employeeMapper.deleteEmployee(id);
+    }
+
+    public Employee login(Employee employee) {
+        String username = employee.getUsername();
+        Employee dbemployee = employeeMapper.selectByUsername(username);
+        if (dbemployee == null) {
+            throw new CustomException("500", "账号不存在");
+        }
+        String password = employee.getPassword();
+        if (!dbemployee.getPassword().equals(password)) {
+            throw new CustomException("500","账号或密码错误");
+        }
+        return dbemployee;
+    }
+
+    public void register(Employee employee) {
+        insertEmployee(employee);
     }
 }

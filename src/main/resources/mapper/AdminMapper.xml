@@ -2,22 +2,22 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.example.spring_boot.mapper.EmployeeMapper">
-    <select id="selectAll" resultType="org.example.spring_boot.entity.Employee">
-        SELECT * FROM employee
+<mapper namespace="org.example.spring_boot.mapper.AdminMapper">
+    <select id="selectAll" resultType="org.example.spring_boot.entity.Admin">
+        SELECT * FROM admin
         <where>
             <if test="name != null">name like concat ('%', #{name}, '%')</if>
         </where>
     </select>
 
-    <insert id="insertEmployee" parameterType="org.example.spring_boot.entity.Employee"
+    <insert id="insertAdmin" parameterType="org.example.spring_boot.entity.Admin"
             useGeneratedKeys="true" keyProperty="id"> <!-- 必须加这两个属性 -->
-        insert into employee (name, email, department, salary, hire_date, username, password, role)
+        insert into admin (name, email, department, salary, hire_date, username, password, role)
         values (IFNULL(#{name}, '未知用户'), #{email}, #{department}, #{salary}, #{hireDate}, #{username}, #{password}, IFNULL(#{role}, 'user'))
     </insert>
 
-    <update id="updateEmployee">
-        UPDATE employee
+    <update id="updateAdmin">
+        UPDATE admin
         SET
             name = #{name},
             email = #{email},
@@ -28,14 +28,14 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteEmployee">
-        DELETE FROM employee
+    <delete id="deleteAdmin">
+        DELETE FROM admin
         WHERE id = #{id}
     </delete>
 
-    <select id="selectByUsername" resultType="org.example.spring_boot.entity.Employee">
+    <select id="selectByUsername" resultType="org.example.spring_boot.entity.Admin">
         SELECT *
-        FROM employee
+        FROM admin
         WHERE username = #{username} <!-- #{username}是参数占位符，防止SQL注入 -->
     </select>
 

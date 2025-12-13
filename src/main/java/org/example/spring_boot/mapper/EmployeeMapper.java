@@ -18,4 +18,6 @@ public interface EmployeeMapper {
     int updateEmployee(Employee employee);
 
     boolean deleteEmployee(Integer id);
+
+    Employee selectByUsername(String username);
 }

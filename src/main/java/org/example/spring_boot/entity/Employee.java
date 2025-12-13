@@ -11,6 +11,35 @@ public class Employee {
     private String department;
     private BigDecimal salary;  // 对应数据库的DECIMAL类型，精度计算更准确
     private LocalDate hireDate; // Java 8的日期类型，对应数据库的DATE
+    private String username;
+    private String password;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 
     // 空构造方法
     public Employee() {
